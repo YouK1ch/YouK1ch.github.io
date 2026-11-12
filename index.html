@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    try {
+      var t = localStorage.getItem("theme");
+      document.documentElement.dataset.theme = t || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    } catch (e) {}
+  </script>
+  <title>Денис Столик — портфоліо з кібербезпеки</title>
+  <meta name="description" content="Портфоліо Дениса Столика: Hack The Box, TryHackMe, криптологія, цифрова криміналістика." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Onest:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap&subset=cyrillic" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home"><span class="brand-name">Youk1</span></a>
+    <div class="topbar-actions">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false"><span class="tt-dot" aria-hidden="true"></span><span class="tt-label">Темна тема</span></button>
+      <button class="burger" aria-controls="side" aria-expanded="false">Меню</button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="side" id="side">
+      <a class="brand" href="#home">
+        <span class="brand-name">Youk1</span>
+        <span class="brand-sub">Денис Столик, курсант ХНУВС</span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Розділи">
+        <a href="#home">Головна сторінка</a>
+        <a href="#about">Про мене</a>
+        <a href="#skills">Навички та інструменти</a>
+        <a href="#machines">Машини для лабораторних робіт</a>
+        <span class="group">Цифрова криміналістика</span>
+        <a href="#forensics">Шерлоки</a>
+        <a href="#certs">Сертифікати</a>
+        <span class="group">Кібербезпека</span>
+        <a href="#sem5-cyber">5 семестр</a>
+        <a href="#sem6-cyber">6 семестр</a>
+        <span class="group">Криптологія</span>
+        <a href="#sem5-crypto">5 семестр</a>
+        <a href="#sem6-crypto">6 семестр</a>
+        <span class="group">Звітність</span>
+        <a href="#table">Таблиця</a>
+      </nav>
+      <div class="side-foot">
+        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
+          <span class="tt-dot" aria-hidden="true"></span><span class="tt-label">Темна тема</span>
+        </button>
+        <a href="https://app.hackthebox.com/users/1960165" target="_blank" rel="noopener noreferrer">Hack The Box</a> ·
+        <a href="https://tryhackme.com/p/Yuk1ch" target="_blank" rel="noopener noreferrer">TryHackMe</a>
+      </div>
+    </aside>
+
+    <main id="app" tabindex="-1"></main>
+  </div>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Перегляд сертифіката">
+    <div class="lb-inner">
+      <img alt="" />
+      <div class="lb-bar">
+        <div><h2></h2><p></p></div>
+        <div class="lb-actions">
+          <a class="btn primary lb-pdf" href="#" target="_blank" rel="noopener noreferrer">Відкрити PDF</a>
+          <button type="button" class="btn lb-close">Закрити</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
