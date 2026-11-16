@@ -67,7 +67,6 @@ const SEM5_CYBER = {
   machines: [
     { name: "CodePartTwo", img: "img/htb-codeparttwo.jpg", url: ach("machine", 692) },
     { name: "Conversor", img: "img/htb-conversor.jpg", url: ach("machine", 787) },
-    { name: "Expressway", img: "img/htb-expressway.jpg", url: ach("machine", 736) },
     { name: "Editor", img: "img/htb-editor.jpg", url: ach("machine", 684) },
   ],
   challenges: [
@@ -106,8 +105,6 @@ const SEM6_CYBER = {
   machines: [
     { name: "Garfield", img: "img/htb-garfield.jpg", url: ach("machine", 862) },
     { name: "WingData", img: "img/htb-wingdata.jpg", url: ach("machine", 835) },
-    { name: "Kobold", img: "img/htb-kobold.jpg", url: ach("machine", 856) },
-    { name: "CCTV", img: "img/htb-cctv.jpg", url: ach("machine", 847) },
   ],
 };
 
@@ -324,6 +321,9 @@ const SEM7_CYBER = {
     { name: "Cohort", img: "img/htb-cohort.jpg", url: ach("machine", 933) },
     { name: "Pirate", img: "img/htb-pirate.jpg", url: ach("machine", 844) },
     ...LAB_MACHINES,
+    { name: "Expressway", img: "img/htb-expressway.jpg", url: ach("machine", 736) },
+    { name: "Kobold", img: "img/htb-kobold.jpg", url: ach("machine", 856) },
+    { name: "CCTV", img: "img/htb-cctv.jpg", url: ach("machine", 847) },
   ],
   profiles: [
     { name: "TryHackMe", img: "img/profile-tryhackme.jpg", url: "https://tryhackme.com/p/Yuk1ch",
