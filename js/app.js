@@ -8,7 +8,7 @@
     home: "Головна сторінка",
     about: "Про мене",
     skills: "Навички та інструменти",
-    machines: "Машини для лабораторних робіт",
+    "sem7-cyber": "Кібербезпека, 7 семестр",
     forensics: "Шерлоки",
     certs: "Сертифікати",
     "sem5-cyber": "Кібербезпека, 5 семестр",
@@ -70,6 +70,28 @@
   const catIcon = (c) => `<svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${CAT_ICON[c] || CAT_ICON.DFIR}</svg>`;
 
   const DF = "Цифрова криміналістика";
+  const fmtDate = (d) => new Date(d).toLocaleDateString("uk-UA", { day: "numeric", month: "long", year: "numeric" });
+  const LB = { certs: () => CERTS, sem7: () => SEM7_CYBER.certs };
+  const certCard = (c, set, i) => `
+          <article class="cert">
+            <button type="button" class="cert-img" data-lightbox="${set}:${i}" aria-label="Переглянути сертифікат «${esc(c.title)}»">
+              <img src="${c.thumb}" alt="" loading="lazy" />
+              <span class="zoom" aria-hidden="true">Переглянути</span>
+            </button>
+            <div class="cert-body">
+              <h3>${esc(c.title)}</h3>
+              <p>${esc(c.desc)}</p>
+              <dl>
+                <dt>Видано</dt><dd>${fmtDate(c.date)}</dd>
+                ${c.hours ? `<dt>Тривалість</dt><dd>${c.hours} ${plural(c.hours, "година", "години", "годин")}</dd>` : ""}
+                ${c.code ? `<dt>${c.issuer.startsWith("OpenLearn") ? "Код курсу" : c.issuer.startsWith("Cyber 5W") ? "ID сертифіката" : "Номер сертифіката"}</dt><dd class="mono">${esc(c.code)}</dd>` : ""}
+              </dl>
+              <div class="cert-links">
+                <a href="${c.file}" ${ext}>${/\.pdf$/.test(c.file) ? "Відкрити PDF" : "Відкрити зображення"} ${extIcon}</a>
+                ${c.course ? `<a href="${esc(c.course)}" ${ext}>Сторінка курсу ${extIcon}</a>` : ""}
+              </div>
+            </div>
+          </article>`;
   const subtabs = (cur) => `
     <nav class="subtabs" aria-label="${DF}">
       <a href="#forensics" ${cur === "forensics" ? 'aria-current="page"' : ""}>Шерлоки <span>${SHERLOCKS.length}</span></a>
@@ -114,7 +136,7 @@
         <a class="dir feature" href="#forensics"><strong>Цифрова криміналістика</strong><span>${SHERLOCKS.length} розв'язаних Sherlocks і ${CERTS.length} сертифікатів</span></a>
         <a class="dir" href="#skills"><strong>Навички та інструменти</strong><span>OSINT, криміналістика, мережі та платформи, де це підтверджено</span></a>
         <a class="dir" href="#about"><strong>Про мене</strong><span>Освіта, відзнаки, контакти та резюме в PDF</span></a>
-        <a class="dir" href="#machines"><strong>Машини для лабораторних робіт</strong><span>Машини HTB, пройдені для лабораторних</span></a>
+        <a class="dir" href="#sem7-cyber"><strong>Кібербезпека, 7 семестр</strong><span>${SEM7_CYBER.certs.length} сертифікатів, машини HTB для лабораторних, профілі TryHackMe і picoCTF</span></a>
         <a class="dir" href="#sem5-cyber"><strong>Кібербезпека, 5 семестр</strong><span>HTB Academy, Cisco, TryHackMe, машини та челенджі</span></a>
         <a class="dir" href="#sem6-cyber"><strong>Кібербезпека, 6 семестр</strong><span>Модулі HTB Academy, челенджі та машини</span></a>
         <a class="dir" href="#sem5-crypto"><strong>Криптологія, 5 семестр</strong><span>Кімнати TryHackMe з криптографії</span></a>
@@ -187,7 +209,9 @@
         ["Сертифікати з цифрової криміналістики", CERTS.length, "#certs"],
         ["Модулі HTB Academy", SEM5_CYBER.htbBadges.length + SEM6_CYBER.htbBadges.length, "#sem6-cyber"],
         ["Курси Cisco Networking Academy", SEM5_CYBER.cisco.length, "#sem5-cyber"],
-        ["Машини Hack The Box", PROFILE.stats.machines, "#machines"],
+        ["Машини Hack The Box", PROFILE.stats.machines, "#sem7-cyber"],
+        ["Сертифікати EC-Council, CodeRED і Basel Institute", SEM7_CYBER.certs.length, "#sem7-cyber"],
+        ["Задачі picoCTF", PROFILE.stats.picoSolved, PROFILE.links.pico],
         ["Кімнати TryHackMe", PROFILE.stats.thmRooms, PROFILE.links.thm],
         ["Челенджі Hack The Box", PROFILE.stats.challenges, "#sem5-cyber"],
       ];
@@ -235,31 +259,36 @@
       ${Object.entries(groups).map(([issuer, list]) => `
         <h2 class="section-title">${esc(issuer)}</h2>
         <p class="section-note">${list.length} ${plural(list.length, "сертифікат", "сертифікати", "сертифікатів")}</p>
-        <div class="certs">${list.map((c) => `
-          <article class="cert">
-            <button type="button" class="cert-img" data-lightbox="${CERTS.indexOf(c)}" aria-label="Переглянути сертифікат «${esc(c.title)}»">
-              <img src="${c.thumb}" alt="" loading="lazy" />
-              <span class="zoom" aria-hidden="true">Переглянути</span>
-            </button>
-            <div class="cert-body">
-              <h3>${esc(c.title)}</h3>
-              <p>${esc(c.desc)}</p>
-              <dl>
-                <dt>Видано</dt><dd>${fmt(c.date)}</dd>
-                <dt>${c.issuer.startsWith("OpenLearn") ? "Код курсу" : "ID сертифіката"}</dt><dd class="mono">${esc(c.code)}</dd>
-              </dl>
-              <div class="cert-links">
-                <a href="${c.file}" ${ext}>Відкрити PDF ${extIcon}</a>
-                ${c.course ? `<a href="${esc(c.course)}" ${ext}>Сторінка курсу ${extIcon}</a>` : ""}
-              </div>
-            </div>
-          </article>`).join("")}
+        <div class="certs">${list.map((c) => certCard(c, "certs", CERTS.indexOf(c))).join("")}
         </div>`).join("")}`;
     },
 
-    machines: () =>
-      head(TITLES.machines, "Машини Hack The Box, пройдені в межах лабораторних робіт.") +
-      section("Hack The Box Machines", LAB_MACHINES, "машина"),
+    "sem7-cyber"() {
+      const S = SEM7_CYBER;
+      const groups = {};
+      S.certs.forEach((c, i) => (groups[c.issuer] = groups[c.issuer] || []).push([c, i]));
+      const nc = S.certs.length;
+      return `
+      ${head(TITLES["sem7-cyber"], "Сертифікати курсів EC-Council, CodeRED і Basel Institute on Governance, машини Hack The Box для лабораторних робіт і профілі на навчальних платформах.")}
+      <h2 class="section-title">Профілі на платформах</h2>
+      <p class="section-note">Актуальна статистика станом на 16 листопада 2026</p>
+      <div class="profiles-grid">${S.profiles.map((p) => `
+        <a class="profile-card" href="${esc(p.url)}" ${ext}>
+          <span class="profile-shot"><img src="${esc(p.img)}" alt="Профіль ${esc(p.name)}" loading="lazy" /></span>
+          <span class="profile-body">
+            <strong>${esc(p.name)} <b>${esc(p.stat)}</b></strong>
+            <span>${esc(p.desc)}</span>
+            <span class="profile-open">Відкрити профіль ${extIcon}</span>
+          </span>
+        </a>`).join("")}
+      </div>
+      <h2 class="section-title">Сертифікати</h2>
+      <p class="section-note">${nc} ${plural(nc, "сертифікат", "сертифікати", "сертифікатів")}, натисніть на зображення, щоб переглянути</p>
+      ${Object.entries(groups).map(([issuer, list]) => `
+        <h3 class="group-title">${esc(issuer)} <span>${list.length}</span></h3>
+        <div class="certs">${list.map(([c, i]) => certCard(c, "sem7", i)).join("")}</div>`).join("")}
+      ${section("Hack The Box Machines", S.machines, "машина", `${S.machines.length} машин, зокрема для лабораторних робіт`)}`;
+    },
 
     "sem5-cyber": () =>
       head(TITLES["sem5-cyber"]) +
@@ -413,7 +442,7 @@
 
   function route() {
     const [rawKey, qs] = location.hash.slice(1).split("?");
-    const key = rawKey || "home";
+    const key = rawKey === "machines" ? "sem7-cyber" : rawKey || "home";
     if (key === "forensics" && qs) {
       const prm = new URLSearchParams(qs);
       Object.assign(state, { q: prm.get("q") || "", cat: prm.get("cat") || ALL, diff: prm.get("diff") || ALL });
@@ -465,12 +494,14 @@
   $app.addEventListener("click", (e) => {
     const b = e.target.closest("[data-lightbox]");
     if (!b) return;
-    const c = CERTS[+b.dataset.lightbox];
+    const [set, idx] = b.dataset.lightbox.split(":");
+    const c = LB[set]()[+idx];
     boxImg.src = c.thumb.replace(/\.jpg$/, "-lg.jpg");
     boxImg.alt = `Сертифікат «${c.title}»`;
     boxTitle.textContent = c.title;
-    boxMeta.textContent = `${c.issuer}, ${new Date(c.date).toLocaleDateString("uk-UA", { day: "numeric", month: "long", year: "numeric" })}`;
+    boxMeta.textContent = `${c.issuer}, ${fmtDate(c.date)}`;
     boxPdf.href = c.file;
+    boxPdf.textContent = /\.pdf$/.test(c.file) ? "Відкрити PDF" : "Відкрити зображення";
     box.showModal();
   });
   box.addEventListener("click", (e) => { if (e.target === box || e.target.closest(".lb-close")) box.close(); });

@@ -15,8 +15,8 @@ const PROFILE = {
     pico: "https://learn.cylabacademy.org/users/Yuk1ch",
     cryptohack: "https://cryptohack.org/user/youk1ch/",
   },
-  // thmRooms — завершені кімнати на профілі TryHackMe (перевірено 13.11.2026)
-  stats: { machines: 14, sherlocks: 21, challenges: 10, level: 57, rank: "Professional", thmRooms: 72 },
+  // перевірено на профілях HTB і TryHackMe 16.11.2026
+  stats: { machines: 15, sherlocks: 21, challenges: 10, level: 58, rank: "Professional", thmRooms: 92, picoSolved: 12 },
 };
 
 const LAB_MACHINES = [
@@ -229,6 +229,8 @@ const ABOUT = {
     "EC-Council",
     "Cisco Networking Academy",
     "Cyber 5W — 8 курсів з цифрової криміналістики",
+    "EC-Council CodeRED — 7 курсів",
+    "Basel Institute on Governance — 6 курсів з фінансових розслідувань і аналізу",
     "OpenLearn, The Open University — Digital forensics",
     "EUAM «Training of Trainers Course on OSINT and Criminal Investigation»",
   ],
@@ -277,3 +279,56 @@ const CERTS = [
     file: "assets/certs/c5w-linux-forensics-distributions.pdf", thumb: "assets/certs/c5w-linux-forensics-distributions.jpg",
     desc: "Огляд дистрибутивів Linux для цифрової криміналістики та їхніх інструментів." },
 ];
+
+// ── Кібербезпека, 7 семестр ──
+const C7 = "assets/certs7/";
+const cert7 = (o) => ({ ...o, thumb: C7 + o.img + ".jpg", file: o.pdf ? C7 + o.img + ".pdf" : C7 + o.img + "-lg.jpg" });
+const SEM7_CYBER = {
+  certs: [
+    // EC-Council
+    { title: "Digital Forensics Essentials (DFE)", issuer: "EC-Council", date: "2024-06-27", code: "339936", img: "ec-dfe",
+      desc: "Основи цифрової криміналістики: процес розслідування, докази на дисках, у файлових системах, Windows, Linux і мережі." },
+    { title: "Cybersecurity for Businesses — The Fundamental Edition", issuer: "EC-Council", date: "2025-11-03", code: "447242", hours: 2, img: "ec-cyber-business",
+      desc: "Базовий захист бізнесу: типові загрози, політики безпеки та реагування на інциденти." },
+    // CodeRED
+    { title: "Introduction to SAN and NAS Storage", issuer: "EC-Council CodeRED", date: "2026-04-29", code: "494601", hours: 4, img: "cr-san-nas",
+      desc: "Мережеві сховища даних SAN і NAS: архітектура, протоколи та захист." },
+    { title: "A Practical Introduction to Cloud Computing", issuer: "EC-Council CodeRED", date: "2026-04-29", code: "494609", hours: 3, img: "cr-cloud",
+      desc: "Хмарні моделі IaaS, PaaS і SaaS, віртуалізація та практичне розгортання сервісів." },
+    { title: "Cisco LABS Crash Course", issuer: "EC-Council CodeRED", date: "2026-04-29", code: "494611", hours: 1, img: "cr-cisco-labs",
+      desc: "Практичні лабораторні з налаштування мережевого обладнання Cisco." },
+    { title: "Android Bug Bounty Hunting: Hunt Like a Rat", issuer: "EC-Council CodeRED", date: "2026-03-20", code: "484486", hours: 1, img: "cr-android-bug-bounty",
+      desc: "Пошук вразливостей в Android-застосунках для програм bug bounty." },
+    { title: "SQL Injection Attacks", issuer: "EC-Council CodeRED", date: "2026-02-03", code: "471989", hours: 1, img: "cr-sqli",
+      desc: "Механіка SQL-ін'єкцій, їх експлуатація та захист вебзастосунків." },
+    { title: "Make In-house Hacking and Pentesting Lab", issuer: "EC-Council CodeRED", date: "2025-12-17", code: "459155", hours: 2, img: "cr-pentest-lab",
+      desc: "Побудова власної лабораторії для етичного хакінгу та тестування на проникнення." },
+    { title: "Introduction to Dark Web, Anonymity, and Cryptocurrency", issuer: "EC-Council CodeRED", date: "2025-11-27", code: "453887", hours: 1, img: "cr-dark-web",
+      desc: "Даркнет, інструменти анонімності та криптовалюти з погляду розслідувача." },
+    // Basel Institute on Governance
+    { title: "Наочна демонстрація справ та грошових потоків", issuer: "Basel Institute on Governance", date: "2026-11-16", img: "basel-visual-cases", pdf: true,
+      desc: "Візуалізація схем, зв'язків і грошових потоків у фінансових розслідуваннях. ICAR." },
+    { title: "Фінансовий аналіз за допомогою Excel", issuer: "Basel Institute on Governance", date: "2026-11-16", img: "basel-excel", pdf: true,
+      desc: "Аналіз банківських виписок і фінансових даних в Excel. ICAR." },
+    { title: "Аналіз джерел та використання коштів", issuer: "Basel Institute on Governance", date: "2026-11-16", img: "basel-source-application", pdf: true,
+      desc: "Метод «джерела та використання коштів» для виявлення незаконних доходів. ICAR." },
+    { title: "Data Cleaning and Harvesting", issuer: "Basel Institute on Governance", date: "2026-10-27", img: "basel-data-cleaning", pdf: true,
+      desc: "Збір та очищення даних для подальшого аналізу в розслідуваннях. ICAR." },
+    { title: "Оперативний аналіз", issuer: "Basel Institute on Governance", date: "2026-10-27", img: "basel-operational-analysis", pdf: true,
+      desc: "Методи оперативного аналізу інформації у кримінальних розслідуваннях. ICAR." },
+    { title: "Розслідування на основі відкритих даних", issuer: "Basel Institute on Governance", date: "2026-10-22", img: "basel-osint-investigations", pdf: true,
+      desc: "OSINT-розслідування: пошук і перевірка інформації з відкритих джерел." },
+  ].map(cert7),
+  machines: [
+    { name: "Touch", img: "img/htb-touch.jpg", url: ach("machine", 987) },
+    { name: "Cohort", img: "img/htb-cohort.jpg", url: ach("machine", 933) },
+    { name: "Pirate", img: "img/htb-pirate.jpg", url: ach("machine", 844) },
+    ...LAB_MACHINES,
+  ],
+  profiles: [
+    { name: "TryHackMe", img: "img/profile-tryhackme.jpg", url: "https://tryhackme.com/p/Yuk1ch",
+      stat: "92 кімнати", desc: "Silver league, топ 5% рейтингу, 1 025 подій за останній рік." },
+    { name: "picoCTF", img: "img/profile-picoctf.jpg", url: "https://learn.cylabacademy.org/users/Yuk1ch",
+      stat: "12 задач", desc: "CyLab Security Academy (Carnegie Mellon University): 8 легких і 4 середні задачі." },
+  ],
+};
